@@ -132,7 +132,7 @@ function plot_ways(way_arr::Array{Way}, bbox::Tuple; width::Int64=900, css_file_
 	cascade = []
 	if css_file_name != ""
 		cascade = parse_css(css_file_name)
-	end 
+	end
 	for way in way_arr
 		if haskey(way.tags, "layer")
 			l = tryparse(Int, way.tags["layer"])
@@ -187,13 +187,14 @@ function plot_ways(way_arr::Array{Way}, bbox::Tuple; width::Int64=900, css_file_
 	    	if f != nothing
 	    		Winston.add(p, f)
 	    	end
-		end 
+		end
 	end
 	println(labels)
 	for label in labels
 		Winston.add(p, label)
 	end
     display(p)
+	return p
 end
 function split_polygon(nodes::Array{Node})
 	return findmax([i.x for i in nodes])[2]
@@ -218,7 +219,7 @@ function is_less(a, b, center)
 	det = (a.x - center[1]) * (b.y - center[2]) - (b.x - center[2]) * (a.y - center[2])
 	if det < 0
 		return true
-	elseif det > 0 
+	elseif det > 0
 		return false
 	end
 	d1 = (a.x - center[1]) * (a.x - center[1]) + (a.y - center[2]) * (a.y - center[2])
@@ -280,7 +281,7 @@ function save_json(way_arr::Array{Way}, filepath::String)
 		end
 		write(f, startarraystr)
 		flags[3]=true
-		
+
 		for coord in sorted_arr
 			lon = coord.x
 			lat = coord.y
@@ -294,7 +295,7 @@ function save_json(way_arr::Array{Way}, filepath::String)
 		end
 		write(f, endarraystr)
 	end
-	
+
 	write(f, "\n]\n}")
 	close(f)
 end
