@@ -23,8 +23,8 @@ highway_styles = Dict(
 	"road" => Dict("color" => 0xA9A9A9, "width"=>  1, "spec"=>  ":", "is_polygon" =>  false),
 	"footway" => Dict("color" => 0xB0B0B0, "width"=>  1, "spec"=>  ":", "is_polygon" =>  false),
 	"bridleway" => Dict("color" => 0xB8B8B8, "width"=>  1, "spec"=>  ":", "is_polygon" =>  false),
-	"steps" => Dict("color" => 0xBEBEBE, "width"=>  1, "spec"=>  ":", "is_polygon" =>  false), 
-	"path" => Dict("color" => 0xC0C0C0, "width"=>  1, "spec"=>  ":", "is_polygon" =>  false) 
+	"steps" => Dict("color" => 0xBEBEBE, "width"=>  1, "spec"=>  ":", "is_polygon" =>  false),
+	"path" => Dict("color" => 0xC0C0C0, "width"=>  1, "spec"=>  ":", "is_polygon" =>  false)
 )
 building_styles = Dict(
 	"yes" => Dict("color" => 0xe891a1, "width"=>  1, "spec"=>  "-", "is_polygon" =>  true),
@@ -159,6 +159,10 @@ nature_styles = Dict(
 	"bay" => Dict("color" => 0xF9F9F9, "width"=>  2, "spec"=>  "-", "is_polygon" =>  true),
 	"beach" => Dict("color" => 0xFFF1BA, "width"=>  2, "spec"=>  "-", "is_polygon" =>  true),
 
+)
+manmade_styles = Dict(
+	"gas" => Dict("color" => 0xffff00, "width"=>  5, "spec"=>  "-", "is_polygon" =>  false),
+	"construction" => Dict("color" => 0x55ffff, "width"=>  1, "spec"=>  "-", "is_polygon" =>  true),
 )
 amenity_styles = Dict(
 	"administration" => Dict("color" => 0xf2d2d8, "width"=>  1, "spec"=>  "-", "is_polygon" =>  true),
@@ -421,6 +425,7 @@ tag2style = Dict(
 	"leisure" => leisure_styles,
 	"nature" => nature_styles,
 	"amenity" => amenity_styles,
+	"manmade" => amenity_styles,
 )
 function get_way_style(tags::Dict, cascade::Array{Any})
 		println()
@@ -451,7 +456,7 @@ function get_way_style(tags::Dict, cascade::Array{Any})
 						end
 						if tryparse(Float64, tags[i]) != nothing && tryparse(Float64, d[i][1]) !=nothing
 							eval_statement = "$(tags[i])$(operator)$(d[i][1])"
-						else 
+						else
 							eval_statement = "\"$(tags[i])\"$(operator)\"$(d[i][1])\""
 						end
 						println("$(eval_statement) -- $(eval(Meta.parse(eval_statement)))")
@@ -473,7 +478,7 @@ function get_way_style(tags::Dict, cascade::Array{Any})
 			end
 			return style
 		end
-        for tag in ["waterway", "building", "amenity", "highway", "leisure", "nature"]
+        for tag in ["waterway", "building", "amenity", "highway", "leisure", "nature","manmade"]
             if haskey(tags, tag)
                 if haskey(tag2style[tag], tags[tag])
                     return tag2style[tag][tags[tag]]
