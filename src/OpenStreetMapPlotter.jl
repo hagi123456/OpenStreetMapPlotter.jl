@@ -169,7 +169,7 @@ function plot_ways(way_arr::Array{Way}, bbox::Tuple; width::Int64=900, css_file_
 					if occursin(i, style["text"])
 						c = center_of_points(way.nodes)
 						c = ((c[1]-minlon)/range_x, (c[2]-minlat)/range_y)
-						cur_label = PlotLabel(c[1], c[2], replace(way.tags[i], "&"=>"&amp;"), fontsize = style["font-size"])
+						cur_label = PlotLabel(c[1], c[2], replace(way.tags[i], "&"=>"&amp;"), fontsize = style["font-size"]);
 						push!(labels, cur_label)
 						break
 					end
@@ -189,11 +189,10 @@ function plot_ways(way_arr::Array{Way}, bbox::Tuple; width::Int64=900, css_file_
 	    	end
 		end
 	end
-	println(labels)
+	#println(labels)
 	for label in labels
 		Winston.add(p, label)
 	end
-    display(p)
 	return p
 end
 function split_polygon(nodes::Array{Node})

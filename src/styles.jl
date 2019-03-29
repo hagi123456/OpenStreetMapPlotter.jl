@@ -428,10 +428,10 @@ tag2style = Dict(
 	"manmade" => amenity_styles,
 )
 function get_way_style(tags::Dict, cascade::Array{Any})
-		println()
-		println()
-		println()
-		println("<----------NEW STYLE---------->")
+		# println()
+		# println()
+		# println()
+		# println("<----------NEW STYLE---------->")
 		if cascade != []
 			style = nothing
 			for rule in cascade
@@ -447,7 +447,7 @@ function get_way_style(tags::Dict, cascade::Array{Any})
 							else
 								style = merge(style, rule[end])
 							end
-							println("$(i) -- true")
+#							println("$(i) -- true")
 							continue
 						end
 						operator = d[i][2]
@@ -459,7 +459,7 @@ function get_way_style(tags::Dict, cascade::Array{Any})
 						else
 							eval_statement = "\"$(tags[i])\"$(operator)\"$(d[i][1])\""
 						end
-						println("$(eval_statement) -- $(eval(Meta.parse(eval_statement)))")
+#						println("$(eval_statement) -- $(eval(Meta.parse(eval_statement)))")
 						if eval(Meta.parse(eval_statement)) == true
 							if style == nothing
 								style = rule[end]
@@ -470,10 +470,10 @@ function get_way_style(tags::Dict, cascade::Array{Any})
 					end
 				end
 			end
-			show(style)
+			#show(style)
 			for i in keys(tags)
 				if occursin(i, "name")
-					println(tags[i])
+#					println(tags[i])
 				end
 			end
 			return style

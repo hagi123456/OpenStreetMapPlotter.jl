@@ -1,5 +1,5 @@
 function parse_css(filepath::String)
-	open(filepath) do file		
+	open(filepath) do file
 		out = []
 		while !eof(file)
 				ind_out = []
@@ -9,7 +9,7 @@ function parse_css(filepath::String)
 				if match_selector == nothing
 					continue
 				end
-				show(match_selector)
+				#show(match_selector)
 				selector = match_selector[1]
 				push!(ind_out,selector)
 				for i in eachmatch(r"((?<=\[).+?(?=\]))", str)
@@ -51,17 +51,17 @@ function parse_css(filepath::String)
 				tupleized=tuple(ind_out...)
 				push!(out, tupleized)
 		end
-				println()
-		println()
-		println()
+#				println()
+#		println()
+#		println()
 
-		for i in out
-			println("Rule:")
-			println(i)
-		end
-				println()
-		println()
-		println()
+#		for i in out
+#			println("Rule:")
+#			println(i)
+#		end
+#				println()
+#		println()
+#		println()
 
 		return out
 	end
